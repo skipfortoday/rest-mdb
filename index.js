@@ -23,14 +23,23 @@ conn.connect((err) =>{
 });
 
 
-//tampilkan semua data User
+//tampilkan recent absen
 app.get('/api/restmdb',(req, res) => {
-    let sql = "SELECT * FROM tbldatang ORDER BY Tanggal DESC";
+    let sql = "SELECT * FROM tbldatang ORDER BY Tanggal DESC LIMIT 10";
     let query = conn.query(sql, (err, results) => {
       if(err) throw err;
       res.send(JSON.stringify(results));
     });
   });
+
+//Menampilkan Jumlah Record
+app.get('/api/record',(req, res) => {
+  let sql = "SELECT COUNT(DatangID) FROM tbldatang";
+  let query = conn.query(sql, (err, results) => {
+    if(err) throw err;
+    res.send(JSON.stringify(results));
+  });
+}); 
 
 //Server listening
 app.listen(3000,() =>{
