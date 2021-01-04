@@ -10,9 +10,9 @@ app.use(cors())
  
 //create database connection
 const conn = mysql.createConnection({
-  host: 'localhost',
-  user: 'root',
-  password: '',
+  host: '192.168.0.28',
+  user: 'rizky',
+  password: '1234',
   database: 'absensi'
 });
  
@@ -21,6 +21,16 @@ conn.connect((err) =>{
   if(err) throw err;
   console.log('Mysql Connected...');
 });
+
+
+//tampilkan semua data User
+app.get('/api/restmdb',(req, res) => {
+    let sql = "SELECT * FROM tbldatang";
+    let query = conn.query(sql, (err, results) => {
+      if(err) throw err;
+      res.send(JSON.stringify(results));
+    });
+  });
  
 //tampilkan semua data recent Scan
 app.get('/api/att_log',(req, res) => {
