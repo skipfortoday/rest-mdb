@@ -50,6 +50,15 @@ app.get('/api/record',(req, res) => {
   });
 }); 
 
+//Menampilkan List User
+app.get('/api/user',(req, res) => {
+  let sql = "SELECT DISTINCT Nama FROM tbldatang";
+  let query = conn.query(sql, (err, results) => {
+    if(err) throw err;
+    res.send(JSON.stringify(results));
+  });
+}); 
+
 //Server listening
 app.listen(3000,() =>{
   console.log('Server started on port 3000...');
