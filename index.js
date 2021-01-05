@@ -50,6 +50,15 @@ app.get('/api/recentizin',(req, res) => {
   });
 });
 
+//Menampilkan full izin
+  app.get('/api/fullizin',(req, res) => {
+    let sql = "SELECT * FROM tbldatang WHERE keterangan IS NOT NULL ORDER BY Tanggal DESC LIMIT 150";
+    let query = conn.query(sql, (err, results) => {
+      if(err) throw err;
+      res.send(JSON.stringify(results));
+    });
+  });
+
 //Menampilkan Jumlah Record
 app.get('/api/record',(req, res) => {
   let sql = "SELECT COUNT(DatangID) FROM tbldatang";
