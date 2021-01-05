@@ -32,6 +32,15 @@ app.get('/api/recentscan',(req, res) => {
     });
   });
 
+//tampilkan data scan berdasarkan id
+app.get('/api/attlog/:id',(req, res) => {
+  let sql = 'SELECT * FROM tbldatang WHERE Nama="'+req.params.id +'"';
+  let query = conn.query(sql, (err, results) => {
+    if(err) throw err;
+    res.send(JSON.stringify(results));
+  });
+});
+
   //Menampilkan recent izin
 app.get('/api/recentizin',(req, res) => {
   let sql = "SELECT * FROM tbldatang WHERE keterangan IS NOT NULL ORDER BY Tanggal DESC LIMIT 10";
