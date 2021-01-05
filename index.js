@@ -23,14 +23,23 @@ conn.connect((err) =>{
 });
 
 
-//tampilkan recent absen
-app.get('/api/restmdb',(req, res) => {
-    let sql = "SELECT * FROM tbldatang ORDER BY Tanggal DESC LIMIT 10";
+//Menampilkan recent absen
+app.get('/api/recentscan',(req, res) => {
+    let sql = "SELECT * FROM tbldatang WHERE shift IS NOT NULL ORDER BY Tanggal DESC LIMIT 10";
     let query = conn.query(sql, (err, results) => {
       if(err) throw err;
       res.send(JSON.stringify(results));
     });
   });
+
+  //Menampilkan recent izin
+app.get('/api/recentizin',(req, res) => {
+  let sql = "SELECT * FROM tbldatang WHERE keterangan IS NOT NULL ORDER BY Tanggal DESC LIMIT 10";
+  let query = conn.query(sql, (err, results) => {
+    if(err) throw err;
+    res.send(JSON.stringify(results));
+  });
+});
 
 //Menampilkan Jumlah Record
 app.get('/api/record',(req, res) => {
